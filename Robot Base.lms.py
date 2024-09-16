@@ -10,20 +10,20 @@ def main():
  
     # test program: trace letter H
     robot.show_state()
-    robot.drive_forward(20)
+    robot.drive_forward(80)
     robot.show_state()
-    #robot.drive_backward(10)
-    #robot.turn_right(90)
-    robot.drive_forward(10)
+    #robot.drive_backward(40)
+    robot.turn_right(90)
+    robot.drive_forward(40)
     robot.turn_left(90)
-    robot.drive_forward(10)
-    #robot.drive_backward(20)
+    robot.drive_forward(40)
+    #robot.drive_backward(80)
     robot.show_state()
 
 
 class Kraken:
     def __init__(self):
-        self.wheel_diameter = 5.5 # cm
+        self.wheel_diameter = 8.7 # cm
         left_motor_port = 'A'
         right_motor_port = 'B'
         self.left_motor = Motor(left_motor_port)
@@ -47,15 +47,22 @@ class Kraken:
             self .motor_pair.start(correction*10,40)
         self.motor_pair.stop()
 
+    
     def turn_left(self, degrees):
         self.angle_goal = self.angle_goal - degrees
         self.motor_pair.start_tank(-50, 50)
-        while self.motion_sensor.get_yaw_angle()>self.angle_goal: 
+        while self.motion_sensor.get_yaw_angle()>self.angle_goal:
             # wait
             True
         self.motor_pair.stop()
 
-
+    def turn_right(self, degrees):
+        self.angle_goal = self.angle_goal + degrees
+        self.motor_pair.start_tank(50, -50)
+        while self.motion_sensor.get_yaw_angle()<self.angle_goal:
+            # wait
+            True
+        self.motor_pair.stop()
 
 
     # reset_angle tells the robot that it is currently facing
