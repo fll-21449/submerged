@@ -26,12 +26,13 @@ def main():
     wait_for_seconds(1)
     robot.show_state()
 
+SPEED = 80
 
 class Kraken:
     def __init__(self):
         self.wheel_diameter = 8.7 # cm
-        left_motor_port = 'B'
-        right_motor_port = 'F'
+        left_motor_port = 'A'
+        right_motor_port = 'B'
         self.left_motor = Motor(left_motor_port)
         self.right_motor = Motor(right_motor_port)
         self.motor_pair = MotorPair(left_motor_port, right_motor_port)
@@ -50,7 +51,7 @@ class Kraken:
         goal_position = start_position + distance_in_degrees        
         while self.right_motor.get_degrees_counted() < goal_position:
             correction = self.angle_goal - self.motion_sensor.get_yaw_angle()
-            self .motor_pair.start(correction*10,40)
+            self .motor_pair.start(correction*10,SPEED)
         self.motor_pair.stop()
 
     def drive_backward(self, distance):
@@ -60,7 +61,7 @@ class Kraken:
         goal_position = start_position - distance_in_degrees
         while self.right_motor.get_degrees_counted() > goal_position:
             correction = self.angle_goal - self.motion_sensor.get_yaw_angle()
-            self .motor_pair.start(-correction*10,-40)
+            self .motor_pair.start(-correction*10,-SPEED)
         self.motor_pair.stop()
 
     
