@@ -8,29 +8,34 @@ def main():
     robot = Kraken()
     robot.reset_angle()
 
+    #draw_an_h(robot)
+    unexpected_encounter(robot)
+
+def unexpected_encounter(robot):
     robot.drive_forward(12)
     robot.turn_left(45)
     robot.drive_forward(45)
     #robot.drive_backward(45)
   
 
+def draw_an_h(robot):
     # robot.turn_left(90)
     # wait_for_seconds(1)
     # robot.show_state()
     # return
 
     # test program: trace letter H
-    # robot.show_state()
-    # robot.drive_forward(80)
-    # robot.show_state()
-    # robot.drive_backward(40)
-    # robot.turn_right(90)
-    # robot.drive_forward(40)
-    # robot.turn_left(90)
-    # robot.drive_forward(40)
-    # robot.drive_backward(80)
-    # wait_for_seconds(1)
-    # robot.show_state()
+    robot.show_state()
+    robot.drive_forward(80)
+    robot.show_state()
+    robot.drive_backward(40)
+    robot.turn_right(90)
+    robot.drive_forward(40)
+    robot.turn_left(90)
+    robot.drive_forward(40)
+    robot.drive_backward(80)
+    wait_for_seconds(1)
+    robot.show_state()
 
 SPEED = 90
 
