@@ -9,7 +9,17 @@ def main():
     robot.reset_angle()
 
     #draw_an_h(robot)
-    unexpected_encounter(robot)
+    #unexpected_encounter(robot)
+    shipping_lanes(robot)
+
+def shipping_lanes(robot):
+    attachment_motor = Motor('D')
+    attachment_motor.run_for_degrees(-75, 10)
+    robot.turn_right(45, speed = 10)
+    attachment_motor.start(10)
+    robot.drive_forward(20, speed = 10)
+    attachment_motor.stop()
+
 
 def unexpected_encounter(robot):
     robot.drive_forward(12)
@@ -55,24 +65,24 @@ class Kraken:
 
     # drive_forward tells the robot to drive in a
     # straight line "distance" centimeters forwards.
-    def drive_forward(self, distance):
+    def drive_forward(self, distance, speed = SPEED):
         # convert distance (centimeters) to degrees
         distance_in_degrees = distance * (360.0 / (self.wheel_diameter * math.pi))
         start_position = self.right_motor.get_degrees_counted()
         goal_position = start_position + distance_in_degrees        
         while self.right_motor.get_degrees_counted() < goal_position:
             correction = self.angle_goal - self.motion_sensor.get_yaw_angle()
-            self .motor_pair.start(correction*10,SPEED)
+            self .motor_pair.start(correction*10,speed)
         self.motor_pair.stop()
 
-    def drive_backward(self, distance):
+    def drive_backward(self, distance, speed = SPEED):
         # convert distance (centimeters) to degrees
         distance_in_degrees = distance * (360.0 / (self.wheel_diameter * math.pi))
         start_position = self.right_motor.get_degrees_counted()
         goal_position = start_position - distance_in_degrees
         while self.right_motor.get_degrees_counted() > goal_position:
             correction = self.angle_goal - self.motion_sensor.get_yaw_angle()
-            self .motor_pair.start(-correction*10,-SPEED)
+            self .motor_pair.start(-correction*10,-speed)
         self.motor_pair.stop()
 
     
@@ -85,10 +95,10 @@ class Kraken:
             True
         self.motor_pair.stop()
 
-    def turn_right(self, degrees):
+    def turn_right(self, degrees, speed = 50):
         self.angle_goal = self.angle_goal + degrees
         turn_goal = self.angle_goal - 20
-        self.motor_pair.start_tank(50, -50)
+        self.motor_pair.start_tank(speed, -speed)
         while self.motion_sensor.get_yaw_angle()<turn_goal:
             # wait
             True
