@@ -23,10 +23,12 @@ def unexpected_shipping(robot, attachment_motor):
     robot.turn_left(90)
     attachment_motor.run_for_seconds(1, 50)
     robot.drive_backward(12, speed = 20)
-    robot.turn_left(25)
-    robot.drive_backward(3, speed = 20)
-    attachment_motor.run_for_degrees(-75, 10)
+    robot.turn_left(20, speed = 20)
+    robot.drive_backward(1, speed = 20)
+    robot.drive_forward(0.5, speed = 20)
+    attachment_motor.start(-10)
     robot.turn_right(45, speed = 10)
+    attachment_motor.stop()
     attachment_motor.start(10)
     robot.drive_forward(20, speed = 10)
     attachment_motor.stop()
@@ -104,10 +106,10 @@ class Kraken:
         self.motor_pair.stop()
 
     
-    def turn_left(self, degrees):
+    def turn_left(self, degrees, speed = 50):
         self.angle_goal = self.angle_goal - degrees
         turn_goal = self.angle_goal + 20
-        self.motor_pair.start_tank(-50, 50)
+        self.motor_pair.start_tank(-speed, speed)
         while self.motion_sensor.get_yaw_angle()>turn_goal:
             # wait
             True
