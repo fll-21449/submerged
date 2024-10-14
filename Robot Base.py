@@ -46,7 +46,7 @@ def unexpected_encounter(robot):
     robot.turn_left(45)
     robot.drive_forward(45)
     #robot.drive_backward(45)
-  
+
 
 def draw_an_h(robot):
     # robot.turn_left(90)
@@ -89,10 +89,15 @@ class Kraken:
         # convert distance (centimeters) to degrees
         distance_in_degrees = distance * (360.0 / (self.wheel_diameter * math.pi))
         start_position = self.right_motor.get_degrees_counted()
-        goal_position = start_position + distance_in_degrees        
+        goal_position = start_position + distance_in_degrees
         while self.right_motor.get_degrees_counted() < goal_position:
             correction = self.angle_goal - self.motion_sensor.get_yaw_angle()
-            self .motor_pair.start(correction*10,speed)
+            correction *= 10
+            if correction < -50:
+                correction = -50
+            if  correction > 50:
+                correction = 50
+            self .motor_pair.start(correction,speed)
         self.motor_pair.stop()
 
     def drive_backward(self, distance, speed = SPEED):
@@ -102,10 +107,10 @@ class Kraken:
         goal_position = start_position - distance_in_degrees
         while self.right_motor.get_degrees_counted() > goal_position:
             correction = self.angle_goal - self.motion_sensor.get_yaw_angle()
-            self .motor_pair.start(-correction*10,-speed)
+            self .motor_pair.start(-correction,-speed)
         self.motor_pair.stop()
 
-    
+
     def turn_left(self, degrees, speed = 50):
         self.angle_goal = self.angle_goal - degrees
         turn_goal = self.angle_goal + 20
@@ -132,6 +137,6 @@ class Kraken:
     def reset_angle(self):
         self.angle_goal = 0
         self.hub.motion_sensor.reset_yaw_angle()
-     
+
 main()
 sys.exit()
