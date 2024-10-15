@@ -13,6 +13,10 @@ def main():
     #unexpected_encounter(robot)
     #shipping_lanes(robot, attachment_motor)
     unexpected_shipping(robot, attachment_motor)
+    #forklift_test(attachment_motor)
+
+def forklift_test(attachment_motor):
+    attachment_motor.run_for_seconds(3, 65)
 
 def unexpected_shipping(robot, attachment_motor):
     robot.drive_forward(12)
@@ -91,14 +95,18 @@ class Kraken:
         start_position = self.right_motor.get_degrees_counted()
         goal_position = start_position + distance_in_degrees
         while self.right_motor.get_degrees_counted() < goal_position:
-            correction = self.angle_goal - self.motion_sensor.get_yaw_angle()
-            correction *= 10
-            if correction < -50:
-                correction = -50
-            if  correction > 50:
-                correction = 50
-            self .motor_pair.start(correction,speed)
+            self .motor_pair.start(self.correction(),speed)
         self.motor_pair.stop()
+
+    def correction(self):
+        correction = self.angle_goal - self.motion_sensor.get_yaw_angle()
+        correction *= 10
+        if correction < -50:
+            correction = -50
+        if correction > 50:
+            correction = 50
+        return correction
+
 
     def drive_backward(self, distance, speed = SPEED):
         # convert distance (centimeters) to degrees
@@ -106,8 +114,7 @@ class Kraken:
         start_position = self.right_motor.get_degrees_counted()
         goal_position = start_position - distance_in_degrees
         while self.right_motor.get_degrees_counted() > goal_position:
-            correction = self.angle_goal - self.motion_sensor.get_yaw_angle()
-            self .motor_pair.start(-correction,-speed)
+            self .motor_pair.start(-self.correction(),-speed)
         self.motor_pair.stop()
 
 
