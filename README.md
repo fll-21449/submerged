@@ -17,3 +17,5 @@ We're trying Python this season. This repo tracks our code changes throughout th
     ```
     
 1. View the programs on the [programs](https://github.com/fll-21449/submerged/tree/programs) branch.
+
+Optionally, run `./diff.sh` to see what has changed since the last sync.
