@@ -14,9 +14,9 @@ def main():
     #shipping_lanes(robot, attachment_motor)
     #unexpected_shipping(robot, attachment_motor)
     #forklift_test(attachment_motor)
-    #top_left(robot)
+    top_left(robot)
     #shipping_two(robot,attachment_motor)
-    collection_robot(robot)
+    #collection_robot(robot)
 
 def collection_robot(robot):
     robot.drive_forward(38)
@@ -25,8 +25,9 @@ def shipping_two(robot,attachment_motor):
     robot.drive_backward(15)
     robot.turn_left(45)
     robot.drive_backward(4, speed =20) 
-    attachment_motor.run_for_seconds(1.5, 100)
-    robot.drive_forward(18)
+    attachment_motor.start(60)
+    wait_for_seconds(1.5)
+    robot.drive_forward(18, speed=10)
 
 def top_left(robot):
     robot.drive_forward(35)
@@ -36,7 +37,7 @@ def top_left(robot):
     robot.drive_forward(14)
     robot.drive_backward(4)
     robot.turn_right(45)
-    robot.drive_forward(24)
+    robot.drive_forward(22)
 
 
 def forklift_test(attachment_motor):
