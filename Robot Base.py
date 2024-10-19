@@ -12,8 +12,32 @@ def main():
     #draw_an_h(robot)
     #unexpected_encounter(robot)
     #shipping_lanes(robot, attachment_motor)
-    unexpected_shipping(robot, attachment_motor)
+    #unexpected_shipping(robot, attachment_motor)
     #forklift_test(attachment_motor)
+    #top_left(robot)
+    #shipping_two(robot,attachment_motor)
+    collection_robot(robot)
+
+def collection_robot(robot):
+    robot.drive_forward(38)
+
+def shipping_two(robot,attachment_motor):
+    robot.drive_backward(15)
+    robot.turn_left(45)
+    robot.drive_backward(4, speed =20) 
+    attachment_motor.run_for_seconds(1.5, 100)
+    robot.drive_forward(18)
+
+def top_left(robot):
+    robot.drive_forward(35)
+    robot.turn_right(30)
+    robot.drive_forward(32)
+    robot.turn_left(120)
+    robot.drive_forward(14)
+    robot.drive_backward(4)
+    robot.turn_right(45)
+    robot.drive_forward(24)
+
 
 def forklift_test(attachment_motor):
     attachment_motor.run_for_seconds(3, 65)
