@@ -14,9 +14,10 @@ def main():
     #shipping_lanes(robot, attachment_motor)
     #unexpected_shipping(robot, attachment_motor)
     #forklift_test(attachment_motor)
-    top_left(robot)
+    #top_left(robot)
     #shipping_two(robot,attachment_motor)
     #collection_robot(robot)
+    robot.drive_forward(10)
 
 def collection_robot(robot):
     robot.drive_forward(38)
@@ -119,8 +120,11 @@ class Kraken:
         distance_in_degrees = distance * (360.0 / (self.wheel_diameter * math.pi))
         start_position = self.right_motor.get_degrees_counted()
         goal_position = start_position + distance_in_degrees
-        while self.right_motor.get_degrees_counted() < goal_position:
+        small_goal = goal_position - 7 * (360.0 / (self.wheel_diameter * math.pi))
+        while self.right_motor.get_degrees_counted() < small_goal:
             self .motor_pair.start(self.correction(),speed)
+        while self.right_motor.get_degrees_counted() < goal_position:
+            self.motor_pair.start(self.correction(),10)
         self.motor_pair.stop()
 
     def correction(self):
