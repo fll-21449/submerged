@@ -9,28 +9,38 @@ def main():
     robot.reset_angle()
     attachment_motor = Motor('D')
 
-    #draw_an_h(robot)
-    #unexpected_encounter(robot)
-    #shipping_lanes(robot, attachment_motor)
-    #unexpected_shipping(robot, attachment_motor)
-    #forklift_test(attachment_motor)
     #top_left(robot)
     #shipping_two(robot,attachment_motor)
     #collection_robot(robot)
-    robot.drive_backward(10)
-    robot.turn_right(45)
+    #sonar(robot, attachment_motor)
 
+# Luke
+# Still needs work.
+# To do: collect everything and come home.
 def collection_robot(robot):
     robot.drive_forward(38)
 
+# Rutledge.
+# Still needs work.
+def sonar(robot, attachment_motor):
+    robot.drive_backward(26)
+    robot.turn_left(40)
+    robot.drive_backward(40)
+    robot.turn_right(40)
+    attachment_motor.run_for_degrees(360,-50)
+
+# works sometimes
+# Cora
 def shipping_two(robot,attachment_motor):
-    robot.drive_backward(15)
-    robot.turn_left(45)
+    robot.drive_backward(6)
+    robot.turn_left(40)
     robot.drive_backward(4, speed =20) 
     attachment_motor.start(60)
     wait_for_seconds(1.5)
     robot.drive_forward(18, speed=10)
 
+# works 50% of the time.
+# Raden and Phoebe
 def top_left(robot):
     robot.drive_forward(35)
     robot.turn_right(30)
@@ -40,63 +50,12 @@ def top_left(robot):
     robot.drive_backward(4)
     robot.turn_right(45)
     robot.drive_forward(22)
-
-
-def forklift_test(attachment_motor):
-    attachment_motor.run_for_seconds(3, 65)
-
-def unexpected_shipping(robot, attachment_motor):
-    robot.drive_forward(12)
-    robot.turn_left(45)
-    robot.drive_forward(45)
-    robot.reset_angle()
-    robot.drive_backward(26, speed = 20)
-    robot.turn_left(90)
-    attachment_motor.run_for_seconds(1, 50)
-    robot.drive_backward(12, speed = 20)
-    robot.turn_left(20, speed = 20)
-    robot.drive_backward(1, speed = 20)
-    robot.drive_forward(0.5, speed = 20)
-    attachment_motor.start(-10)
-    robot.turn_right(45, speed = 10)
-    attachment_motor.stop()
-    attachment_motor.start(10)
-    robot.drive_forward(20, speed = 10)
-    attachment_motor.stop()
-
-def shipping_lanes(robot, attachment_motor):
-    attachment_motor.run_for_degrees(-75, 10)
-    robot.turn_right(45, speed = 10)
-    attachment_motor.start(10)
-    robot.drive_forward(20, speed = 10)
-    attachment_motor.stop()
-
-
-def unexpected_encounter(robot):
-    robot.drive_forward(12)
-    robot.turn_left(45)
-    robot.drive_forward(45)
-    #robot.drive_backward(45)
-
-
-def draw_an_h(robot):
-    # robot.turn_left(90)
-    # wait_for_seconds(1)
-    # robot.show_state()
-    # return
-
-    # test program: trace letter H
-    robot.show_state()
-    robot.drive_forward(80)
-    robot.show_state()
-    robot.drive_backward(40)
-    robot.turn_right(90)
-    robot.drive_forward(40)
-    robot.turn_left(90)
-    robot.drive_forward(40)
-    robot.drive_backward(80)
-    wait_for_seconds(1)
-    robot.show_state()
+    robot.drive_backward(6)
+    robot.turn_right(45)
+    robot.drive_forward(22)
+    robot.drive_backward(50)
+    robot.turn_right(45)
+    robot.drive_backward(50)
 
 SPEED = 90
 
@@ -145,9 +104,9 @@ class Kraken:
         goal_position = start_position - distance_in_degrees
         small_goal = goal_position - 7 * (360.0 / (self.wheel_diameter * math.pi))
         while self.right_motor.get_degrees_counted() > small_goal:
-            self .motor_pair.start(self.correction(),-speed)
+            self .motor_pair.start(-self.correction(),-speed)
         while self.right_motor.get_degrees_counted() > goal_position:
-            self.motor_pair.start(self.correction(),10)
+            self.motor_pair.start(-self.correction(),-10)
         self.motor_pair.stop()
 
 
@@ -172,7 +131,6 @@ class Kraken:
         small_goal = self.angle_goal - 20
         self.motor_pair.start_tank(speed, -speed)
         while self.motion_sensor.get_yaw_angle()<small_goal:
-            print("small_goal={} yaw={}".format(small_goal, self.motion_sensor.get_yaw_angle()))
             # wait
             True
         self.motor_pair.start_tank(10, -10)
