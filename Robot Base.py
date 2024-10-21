@@ -17,8 +17,8 @@ def main():
     #top_left(robot)
     #shipping_two(robot,attachment_motor)
     #collection_robot(robot)
-    robot.drive_forward(20)
-    robot.turn_left(45, speed=10)
+    robot.drive_backward(10)
+    robot.turn_right(45)
 
 def collection_robot(robot):
     robot.drive_forward(38)
@@ -143,8 +143,11 @@ class Kraken:
         distance_in_degrees = distance * (360.0 / (self.wheel_diameter * math.pi))
         start_position = self.right_motor.get_degrees_counted()
         goal_position = start_position - distance_in_degrees
+        small_goal = goal_position - 7 * (360.0 / (self.wheel_diameter * math.pi))
+        while self.right_motor.get_degrees_counted() > small_goal:
+            self .motor_pair.start(self.correction(),-speed)
         while self.right_motor.get_degrees_counted() > goal_position:
-            self .motor_pair.start(-self.correction(),-speed)
+            self.motor_pair.start(self.correction(),10)
         self.motor_pair.stop()
 
 
@@ -163,11 +166,17 @@ class Kraken:
         self.motor_pair.stop()
 
     def turn_right(self, degrees, speed = 50):
+        if speed>50:
+            speed = 50
         self.angle_goal = self.angle_goal + degrees
-        turn_goal = self.angle_goal - 20
+        small_goal = self.angle_goal - 20
         self.motor_pair.start_tank(speed, -speed)
-        while self.motion_sensor.get_yaw_angle()<turn_goal:
+        while self.motion_sensor.get_yaw_angle()<small_goal:
+            print("small_goal={} yaw={}".format(small_goal, self.motion_sensor.get_yaw_angle()))
             # wait
+            True
+        self.motor_pair.start_tank(10, -10)
+        while self.motion_sensor.get_yaw_angle()<self.angle_goal:
             True
         self.motor_pair.stop()
 
