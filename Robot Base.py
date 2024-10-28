@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 3
+PROGRAM_NUMBER = 6
 
 def main():
     # goal is to be able to write code like this:
@@ -12,32 +12,37 @@ def main():
     attachment_motor = Motor('D')
 
     if PROGRAM_NUMBER == 1:
-        garbage_collection(robot)
+        garbage_collection(robot, attachment_motor)
     elif PROGRAM_NUMBER == 2:
         shipping_two(robot, attachment_motor)
     elif PROGRAM_NUMBER == 3:
         sonar(robot, attachment_motor)
     elif PROGRAM_NUMBER == 4:
-        #whale
+        True #whale
     elif PROGRAM_NUMBER == 5:
-        #go_across_map
+        True #go_across_map
     elif PROGRAM_NUMBER == 6:
         top_left(robot)
     elif PROGRAM_NUMBER == 7:
         raise_the_mast(robot)
     elif PROGRAM_NUMBER == 8:
-        #boat
+        boat(robot)
     
 # Luke
 # Still needs work.
 # To do: collect everything and come home.
-def garbage_collection(robot):
+def garbage_collection(robot, attachment_motor):
     robot.drive_forward(40)
     robot.drive_backward(10)
     robot.turn_right(27)
     robot.drive_forward(37)
-    robot.turn_right(44)
+    robot.turn_right(50)
     robot.drive_forward(22)
+    attachment_motor.run_for_degrees(90,60)
+    robot.drive_backward(22)
+    robot.turn_left(80)
+    robot.drive_backward(55)
+
 
 # Rutledge.
 # Still needs work.
@@ -86,6 +91,10 @@ def raise_the_mast(robot):
     motor_pair = MotorPair('A', 'B')
     motor_pair.move(21, 'cm', 0, 40)
 
+def boat(robot):
+    robot.drive_forward(9)
+    wait_for_seconds(3)
+    robot.drive_backward(20)
 SPEED = 90
 
 class Kraken:
