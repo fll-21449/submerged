@@ -11,14 +11,20 @@ def main():
 
     #top_left(robot)
     #shipping_two(robot,attachment_motor)
-    #collection_robot(robot)
+    garbage_collection(robot)
     #sonar(robot, attachment_motor)
+    #raise_the_mast(robot)
 
 # Luke
 # Still needs work.
 # To do: collect everything and come home.
-def collection_robot(robot):
-    robot.drive_forward(38)
+def garbage_collection(robot):
+    robot.drive_forward(40)
+    robot.drive_backward(10)
+    robot.turn_right(27)
+    robot.drive_forward(37)
+    robot.turn_right(44)
+    robot.drive_forward(22)
 
 # Rutledge.
 # Still needs work.
@@ -34,12 +40,12 @@ def sonar(robot, attachment_motor):
 def shipping_two(robot,attachment_motor):
     robot.drive_backward(6)
     robot.turn_left(40)
-    robot.drive_backward(4, speed =20) 
+    robot.drive_backward(4, speed =20)
     attachment_motor.start(60)
     wait_for_seconds(1.5)
     robot.drive_forward(18, speed=10)
 
-# works 50% of the time.
+# works 100% of the time.
 # Raden and Phoebe
 def top_left(robot):
     robot.drive_forward(35)
@@ -49,13 +55,23 @@ def top_left(robot):
     robot.drive_forward(14)
     robot.drive_backward(4)
     robot.turn_right(45)
-    robot.drive_forward(22)
+    robot.drive_forward(23)
     robot.drive_backward(6)
     robot.turn_right(45)
     robot.drive_forward(22)
     robot.drive_backward(50)
     robot.turn_right(45)
     robot.drive_backward(50)
+
+# works 80% of the time
+# raden progamed and caolan builded
+def raise_the_mast(robot):
+    robot.drive_forward(30)
+    robot.turn_right(45)
+    robot.drive_forward(24)
+    robot.turn_right(43)
+    motor_pair = MotorPair('A', 'B') 
+    motor_pair.move(21, 'cm', 0, 40)
 
 SPEED = 90
 
