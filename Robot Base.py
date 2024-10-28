@@ -3,18 +3,31 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
+PROGRAM_NUMBER = 3
+
 def main():
     # goal is to be able to write code like this:
     robot = Kraken()
     robot.reset_angle()
     attachment_motor = Motor('D')
 
-    #top_left(robot)
-    #shipping_two(robot,attachment_motor)
-    garbage_collection(robot)
-    #sonar(robot, attachment_motor)
-    #raise_the_mast(robot)
-
+    if PROGRAM_NUMBER == 1:
+        garbage_collection(robot)
+    elif PROGRAM_NUMBER == 2:
+        shipping_two(robot, attachment_motor)
+    elif PROGRAM_NUMBER == 3:
+        sonar(robot, attachment_motor)
+    elif PROGRAM_NUMBER == 4:
+        #whale
+    elif PROGRAM_NUMBER == 5:
+        #go_across_map
+    elif PROGRAM_NUMBER == 6:
+        top_left(robot)
+    elif PROGRAM_NUMBER == 7:
+        raise_the_mast(robot)
+    elif PROGRAM_NUMBER == 8:
+        #boat
+    
 # Luke
 # Still needs work.
 # To do: collect everything and come home.
@@ -70,7 +83,7 @@ def raise_the_mast(robot):
     robot.turn_right(45)
     robot.drive_forward(24)
     robot.turn_right(43)
-    motor_pair = MotorPair('A', 'B') 
+    motor_pair = MotorPair('A', 'B')
     motor_pair.move(21, 'cm', 0, 40)
 
 SPEED = 90
