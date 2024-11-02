@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 10
+PROGRAM_NUMBER = 4
 
 def main():
     # goal is to be able to write code like this:
@@ -18,7 +18,7 @@ def main():
     elif PROGRAM_NUMBER == 3:
         sonar(robot, attachment_motor)
     elif PROGRAM_NUMBER == 4:
-        whale_feeder(robot)
+        whale_feeder(robot, attachment_motor)
     elif PROGRAM_NUMBER == 5:
         traverse_map(robot)
     elif PROGRAM_NUMBER == 6:
@@ -31,7 +31,7 @@ def main():
         tsunami(robot)
     elif PROGRAM_NUMBER == 10:
         shark_squid_express(robot)
-    
+
 # Luke
 # Still needs work.
 # To do: collect everything and come home.
@@ -58,24 +58,36 @@ def sonar(robot, attachment_motor):
     attachment_motor.run_for_degrees(360,-50)
     robot.turn_left(40)
     robot.drive_forward(80)
-    
+
 # works sometimes
-# Cora
+# Cora, Rutledge
 def shipping_two(robot,attachment_motor):
-    robot.drive_backward(6)
-    robot.turn_left(40)
-    robot.drive_backward(4, speed =20)
-    attachment_motor.start(60)
-    wait_for_seconds(1.5)
-    robot.drive_forward(18, speed=10)
+    robot.drive_backward(45)
+    robot.turn_right(45)
+    robot.drive_backward(2)
+    robot.turn_left(20)
+    robot.drive_backward(2)
+    attachment_motor.start(-10)
+    robot.turn_right(45, speed = 10)
+    attachment_motor.stop()
+    attachment_motor.start(10)
+    robot.drive_forward(20, speed = 10)
+    attachment_motor.stop()
 
 def traverse_map(robot):
-    robot.drive_forward(18, speed=10)
-    wait_for_seconds(1.5)
-    attachment_motor.start(60)
-    robot.drive_backward(4, speed =20)
-    robot.turn_left(40)
-    robot.drive_backward(6)
+    robot.drive_forward(30)
+    robot.turn_left(45)
+    robot.drive_forward(50)
+    robot.turn_left(25)
+    robot.drive_forward(10)
+    robot.turn_left(20)
+    robot.drive_forward(55)
+    robot.turn_left(10)
+    robot.drive_forward(20)
+    robot.turn_left(15)
+    robot.drive_forward(15)
+    robot.turn_left(20)
+    robot.drive_forward(60)
 
 # works 100% of the time.
 # Raden and Phoebe
@@ -104,24 +116,29 @@ def raise_the_mast(robot):
     robot.turn_right(43)
     motor_pair = MotorPair('A', 'B')
     motor_pair.move(21, 'cm', 0, 40)
+    robot.drive_backward(20,speed = 35)
+    robot.turn_left(43)
+    robot.drive_backward(24)
+    robot.turn_left(45)
+    robot.drive_backward(30)
+
 
 def boat(robot):
     robot.drive_forward(9)
     wait_for_seconds(3)
     robot.drive_backward(20)
 
-def whale_feeder(robot):
+def whale_feeder(robot, attachment_motor):
     robot.drive_forward(40)
     robot.turn_left(45)
     robot.drive_forward(22)
     robot.turn_right(90)
     robot.drive_forward(36,speed=70)
+    attachment_motor.run_for_seconds(2, 70)
     robot.drive_backward(36)
     robot.turn_left(90)
-    robot.drive_backward(22)
-    robot.turn_right(45)
-    robot.drive_backward(40)
-
+    robot.drive_backward(50)
+    
 def tsunami(robot):
     robot.drive_forward(7)
     robot.drive_backward(10)
@@ -131,7 +148,7 @@ def shark_squid_express(robot):
     robot.turn_left(20)
     robot.drive_forward(67)
     robot.turn_left(40)
-    robot.drive_forward(8)
+    robot.drive_forward(13)
 
 
 SPEED = 90
