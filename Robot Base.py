@@ -20,7 +20,7 @@ def main():
     elif PROGRAM_NUMBER == 4:
         whale_feeder(robot)
     elif PROGRAM_NUMBER == 5:
-        True #go_across_map
+        traverse_map(robot)
     elif PROGRAM_NUMBER == 6:
         top_left(robot)
     elif PROGRAM_NUMBER == 7:
@@ -68,6 +68,14 @@ def shipping_two(robot,attachment_motor):
     attachment_motor.start(60)
     wait_for_seconds(1.5)
     robot.drive_forward(18, speed=10)
+
+def traverse_map(robot):
+    robot.drive_forward(18, speed=10)
+    wait_for_seconds(1.5)
+    attachment_motor.start(60)
+    robot.drive_backward(4, speed =20)
+    robot.turn_left(40)
+    robot.drive_backward(6)
 
 # works 100% of the time.
 # Raden and Phoebe
