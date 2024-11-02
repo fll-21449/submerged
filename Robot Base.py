@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 6
+PROGRAM_NUMBER = 10
 
 def main():
     # goal is to be able to write code like this:
@@ -18,7 +18,7 @@ def main():
     elif PROGRAM_NUMBER == 3:
         sonar(robot, attachment_motor)
     elif PROGRAM_NUMBER == 4:
-        True #whale
+        whale_feeder(robot)
     elif PROGRAM_NUMBER == 5:
         True #go_across_map
     elif PROGRAM_NUMBER == 6:
@@ -27,6 +27,10 @@ def main():
         raise_the_mast(robot)
     elif PROGRAM_NUMBER == 8:
         boat(robot)
+    elif PROGRAM_NUMBER == 9:
+        tsunami(robot)
+    elif PROGRAM_NUMBER == 10:
+        shark_squid_express(robot)
     
 # Luke
 # Still needs work.
@@ -52,7 +56,9 @@ def sonar(robot, attachment_motor):
     robot.drive_backward(40)
     robot.turn_right(40)
     attachment_motor.run_for_degrees(360,-50)
-
+    robot.turn_left(40)
+    robot.drive_forward(80)
+    
 # works sometimes
 # Cora
 def shipping_two(robot,attachment_motor):
@@ -71,7 +77,7 @@ def top_left(robot):
     robot.drive_forward(32)
     robot.turn_left(120)
     robot.drive_forward(14)
-    robot.drive_backward(4)
+    robot.drive_backward(2)
     robot.turn_right(45)
     robot.drive_forward(23)
     robot.drive_backward(6)
@@ -95,7 +101,33 @@ def boat(robot):
     robot.drive_forward(9)
     wait_for_seconds(3)
     robot.drive_backward(20)
+
+def whale_feeder(robot):
+    robot.drive_forward(40)
+    robot.turn_left(45)
+    robot.drive_forward(22)
+    robot.turn_right(90)
+    robot.drive_forward(36,speed=70)
+    robot.drive_backward(36)
+    robot.turn_left(90)
+    robot.drive_backward(22)
+    robot.turn_right(45)
+    robot.drive_backward(40)
+
+def tsunami(robot):
+    robot.drive_forward(7)
+    robot.drive_backward(10)
+
+def shark_squid_express(robot):
+    robot.drive_forward(25)
+    robot.turn_left(20)
+    robot.drive_forward(67)
+    robot.turn_left(40)
+    robot.drive_forward(8)
+
+
 SPEED = 90
+
 
 class Kraken:
     def __init__(self):
