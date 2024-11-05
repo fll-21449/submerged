@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 4
+PROGRAM_NUMBER = 10
 
 def main():
     # goal is to be able to write code like this:
@@ -31,19 +31,21 @@ def main():
         tsunami(robot)
     elif PROGRAM_NUMBER == 10:
         shark_squid_express(robot)
-
+    
 # Luke
 # Still needs work.
 # To do: collect everything and come home.
 def garbage_collection(robot, attachment_motor):
-    robot.drive_forward(40)
+    robot.drive_forward(10)
+    robot.turn_left(35)
+    robot.drive_forward(31)
     robot.drive_backward(10)
     robot.turn_right(27)
     robot.drive_forward(37)
     robot.turn_right(50)
-    robot.drive_forward(22)
-    attachment_motor.run_for_degrees(90,60)
-    robot.drive_backward(22)
+    robot.drive_forward(18)
+    #attachment_motor.run_for_degrees(90,60)
+    robot.drive_backward(18)
     robot.turn_left(80)
     robot.drive_backward(55)
 
@@ -125,7 +127,7 @@ def raise_the_mast(robot):
 
 def boat(robot):
     robot.drive_forward(9)
-    wait_for_seconds(3)
+    wait_for_seconds(1)
     robot.drive_backward(20)
 
 def whale_feeder(robot, attachment_motor):
@@ -134,13 +136,13 @@ def whale_feeder(robot, attachment_motor):
     robot.drive_forward(22)
     robot.turn_right(90)
     robot.drive_forward(36,speed=70)
-    attachment_motor.run_for_seconds(2, 70)
+    #attachment_motor.run_for_seconds(2, 70)
     robot.drive_backward(36)
     robot.turn_left(90)
     robot.drive_backward(50)
     
 def tsunami(robot):
-    robot.drive_forward(7)
+    robot.drive_forward(7, speed = 20)
     robot.drive_backward(10)
 
 def shark_squid_express(robot):
