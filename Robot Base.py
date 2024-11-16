@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 5
+PROGRAM_NUMBER = 6
 
 def main():
     # goal is to be able to write code like this:
@@ -94,17 +94,22 @@ def traverse_map(robot):
 # works 100% of the time.
 # Raden and Phoebe
 def top_left(robot):
-    robot.drive_forward(35)
-    robot.turn_right(30)
-    robot.drive_forward(32)
-    robot.turn_left(120)
-    robot.drive_forward(14)
-    robot.drive_backward(2)
-    robot.turn_right(45)
     robot.drive_forward(23)
+    robot.turn_right(25)
+    robot.drive_forward(45)
+    robot.turn_left(115)
+    robot.drive_forward(8)
+    # flip coral buds up
+    robot.drive_backward(29)
+    #raise the mast
+    robot.drive_forward(36)
+    robot.turn_right(45)
+    robot.drive_forward(21)
+    #hit the sherk
     robot.drive_backward(6)
     robot.turn_right(45)
     robot.drive_forward(22)
+    #cora reef
     robot.drive_backward(50)
     robot.turn_right(45)
     robot.drive_backward(50)
