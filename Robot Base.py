@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 10
+PROGRAM_NUMBER = 5
 
 def main():
     # goal is to be able to write code like this:
@@ -88,8 +88,8 @@ def traverse_map(robot):
     robot.drive_forward(20)
     robot.turn_left(15)
     robot.drive_forward(15)
-    robot.turn_left(20)
-    robot.drive_forward(60)
+    robot.turn_left(30)
+    robot.drive_forward(70)
 
 # works 100% of the time.
 # Raden and Phoebe
