@@ -31,7 +31,7 @@ def main():
         tsunami(robot)
     elif PROGRAM_NUMBER == 10:
         shark_squid_express(robot)
-    
+
 # Luke
 # Still needs work.
 # To do: collect everything and come home.
@@ -145,7 +145,7 @@ def whale_feeder(robot, attachment_motor):
     robot.drive_backward(36)
     robot.turn_left(90)
     robot.drive_backward(50)
-    
+
 def tsunami(robot):
     robot.drive_forward(7, speed = 20)
     robot.drive_backward(10)
