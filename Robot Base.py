@@ -3,13 +3,14 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 6
+PROGRAM_NUMBER = 4
 
 def main():
     # goal is to be able to write code like this:
     robot = Kraken()
     robot.reset_angle()
     attachment_motor = Motor('D')
+    attachment_motor2 = Motor('F')
 
     if PROGRAM_NUMBER == 1:
         garbage_collection(robot, attachment_motor)
@@ -22,7 +23,7 @@ def main():
     elif PROGRAM_NUMBER == 5:
         traverse_map(robot)
     elif PROGRAM_NUMBER == 6:
-        top_left(robot)
+        top_left(robot, attachment_motor2)
     elif PROGRAM_NUMBER == 7:
         raise_the_mast(robot)
     elif PROGRAM_NUMBER == 8:
@@ -93,18 +94,21 @@ def traverse_map(robot):
 
 # works 100% of the time.
 # Raden and Phoebe
-def top_left(robot):
+def top_left(robot, attachment_motor2):
     robot.drive_forward(23)
     robot.turn_right(25)
     robot.drive_forward(45)
     robot.turn_left(115)
+    # get scuba diver :-)
+    attachment_motor2.run_for_degrees(86,50)
     robot.drive_forward(8)
+    attachment_motor2.run_for_degrees(-45,50)
     # flip coral buds up
     robot.drive_backward(29)
     #raise the mast
     robot.drive_forward(36)
     robot.turn_right(45)
-    robot.drive_forward(21)
+    robot.drive_forward(15)
     #hit the sherk
     robot.drive_backward(6)
     robot.turn_right(45)
@@ -142,9 +146,17 @@ def whale_feeder(robot, attachment_motor):
     robot.turn_right(90)
     robot.drive_forward(36,speed=70)
     #attachment_motor.run_for_seconds(2, 70)
-    robot.drive_backward(36)
+    #added shipping lanes to whale feeder
+    robot.drive_backward(12)
     robot.turn_left(90)
-    robot.drive_backward(50)
+    robot.drive_forward(7)
+    attachment_motor.run_for_degrees(160, -50)
+    robot.drive_backward(7)
+    attachment_motor.run_for_degrees(-20, -35)
+    robot.drive_forward(6)
+    robot.turn_right(45)
+    robot.drive_backward(58)
+
 
 def tsunami(robot):
     robot.drive_forward(7, speed = 20)
