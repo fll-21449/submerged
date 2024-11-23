@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 4
+PROGRAM_NUMBER = 1
 
 def main():
     # goal is to be able to write code like this:
@@ -13,7 +13,7 @@ def main():
     attachment_motor2 = Motor('F')
 
     if PROGRAM_NUMBER == 1:
-        garbage_collection(robot, attachment_motor)
+        pickaxe(robot)
     elif PROGRAM_NUMBER == 2:
         shipping_two(robot, attachment_motor)
     elif PROGRAM_NUMBER == 3:
@@ -33,23 +33,13 @@ def main():
     elif PROGRAM_NUMBER == 10:
         shark_squid_express(robot)
 
-# Luke
-# Still needs work.
-# To do: collect everything and come home.
-def garbage_collection(robot, attachment_motor):
+def pickaxe(robot):
+    robot.drive_forward(38)
+    robot.turn_left(50)
+    robot.drive_backward(8)
+    robot.turn_left(20)
     robot.drive_forward(10)
-    robot.turn_left(35)
-    robot.drive_forward(31)
-    robot.drive_backward(10)
-    robot.turn_right(27)
-    robot.drive_forward(37)
-    robot.turn_right(50)
-    robot.drive_forward(18)
-    #attachment_motor.run_for_degrees(90,60)
-    robot.drive_backward(18)
-    robot.turn_left(80)
-    robot.drive_backward(55)
-
+    robot.drive_backward(50)
 
 # Rutledge.
 # Still needs work.
@@ -102,9 +92,9 @@ def top_left(robot, attachment_motor2):
     # get scuba diver :-)
     attachment_motor2.run_for_degrees(86,50)
     robot.drive_forward(8)
-    attachment_motor2.run_for_degrees(-45,50)
+    attachment_motor2.run_for_degrees(-60,100)
     # flip coral buds up
-    robot.drive_backward(29)
+    robot.drive_backward(20)
     #raise the mast
     robot.drive_forward(36)
     robot.turn_right(45)
@@ -145,14 +135,22 @@ def whale_feeder(robot, attachment_motor):
     robot.drive_forward(22)
     robot.turn_right(90)
     robot.drive_forward(36,speed=70)
+    # this is where it hits the whale
     #attachment_motor.run_for_seconds(2, 70)
     #added shipping lanes to whale feeder
-    robot.drive_backward(12)
+    robot.drive_backward(11)
     robot.turn_left(90)
     robot.drive_forward(7)
-    attachment_motor.run_for_degrees(160, -50)
-    robot.drive_backward(7)
-    attachment_motor.run_for_degrees(-20, -35)
+    # lined up with shipping lanes
+    attachment_motor.run_for_degrees(160, 50)
+    robot.drive_backward(1, speed = 15)
+    # attachment_motor.run_for_seconds(5, -80)
+    # robot.drive_backward(1, speed = 15)
+    attachment_motor.start(80)
+    robot.turn_left(5)
+    robot.turn_right(5)
+    robot.turn_left(5)
+    attachment_motor.stop()
     robot.drive_forward(6)
     robot.turn_right(45)
     robot.drive_backward(58)
