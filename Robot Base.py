@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 1
+PROGRAM_NUMBER = 4
 
 def main():
     # goal is to be able to write code like this:
@@ -34,13 +34,16 @@ def main():
         shark_squid_express(robot)
 
 def pickaxe(robot):
-    robot.drive_forward(38)
-    robot.turn_left(50)
-    robot.drive_backward(8)
-    robot.turn_left(20)
-    robot.drive_forward(10)
-    robot.drive_backward(50)
-
+    robot.drive_forward(50, 70)
+    robot.turn_left(45)
+    robot.drive_backward(10)
+    robot.turn_left(30)
+    robot.drive_forward(15)
+    #robot.drive_backward(10)
+    #robot.turn_left(15)
+    #robot.drive_backward(10)
+    #robot.turn_left(90)
+    
 # Rutledge.
 # Still needs work.
 def sonar(robot, attachment_motor):
@@ -142,18 +145,20 @@ def whale_feeder(robot, attachment_motor):
     robot.turn_left(90)
     robot.drive_forward(7)
     # lined up with shipping lanes
-    attachment_motor.run_for_degrees(160, 50)
+    attachment_motor.run_for_degrees(180, 50)
     robot.drive_backward(1, speed = 15)
-    # attachment_motor.run_for_seconds(5, -80)
+    attachment_motor.run_for_degrees(-100, 100)
     # robot.drive_backward(1, speed = 15)
-    attachment_motor.start(80)
-    robot.turn_left(5)
-    robot.turn_right(5)
-    robot.turn_left(5)
-    attachment_motor.stop()
+    # attachment_motor.start(80)
+    # robot.turn_left(5)
+    # robot.turn_right(5)
+    # robot.turn_left(5)
+    # attachment_motor.stop()
     robot.drive_forward(6)
     robot.turn_right(45)
-    robot.drive_backward(58)
+    robot.drive_backward(40)
+    robot.turn_left(45)
+    robot.drive_backward(19)
 
 
 def tsunami(robot):
