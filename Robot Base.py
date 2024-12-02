@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 4
+PROGRAM_NUMBER = 10
 
 def main():
     # goal is to be able to write code like this:
@@ -13,7 +13,7 @@ def main():
     attachment_motor2 = Motor('F')
 
     if PROGRAM_NUMBER == 1:
-        pickaxe(robot)
+        pickaxe(robot, attachment_motor2)
     elif PROGRAM_NUMBER == 2:
         shipping_two(robot, attachment_motor)
     elif PROGRAM_NUMBER == 3:
@@ -31,18 +31,22 @@ def main():
     elif PROGRAM_NUMBER == 9:
         tsunami(robot)
     elif PROGRAM_NUMBER == 10:
+        attachment_motor.run_for_degrees(360, 100)
+        return
         shark_squid_express(robot)
 
-def pickaxe(robot):
-    robot.drive_forward(50, 70)
-    robot.turn_left(45)
+def pickaxe(robot, attachment_motor2):
+    robot.drive_forward(43)
+    attachment_motor2.run_for_degrees(50)
+    wait_for_seconds(1)
+    robot.turn_left(40)
     robot.drive_backward(10)
-    robot.turn_left(30)
-    robot.drive_forward(15)
-    #robot.drive_backward(10)
-    #robot.turn_left(15)
-    #robot.drive_backward(10)
-    #robot.turn_left(90)
+    robot.turn_left(20)
+    robot.drive_forward(10)
+    robot.drive_backward(10)
+    robot.turn_left(25)
+    robot.drive_backward(40)
+    robot.turn_left(90)
     
 # Rutledge.
 # Still needs work.
@@ -71,8 +75,9 @@ def shipping_two(robot,attachment_motor):
     attachment_motor.stop()
 
 def traverse_map(robot):
-    robot.drive_forward(30)
-    robot.turn_left(45)
+    robot.drive_forward(25)
+    robot.turn_left(33)
+    return
     robot.drive_forward(50)
     robot.turn_left(25)
     robot.drive_forward(10)
@@ -128,7 +133,7 @@ def raise_the_mast(robot):
 
 
 def boat(robot):
-    robot.drive_forward(9)
+    robot.drive_forward(9,speed = 20)
     wait_for_seconds(1)
     robot.drive_backward(20)
 
