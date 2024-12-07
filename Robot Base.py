@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 10
+PROGRAM_NUMBER = 3
 
 def main():
     # goal is to be able to write code like this:
@@ -15,38 +15,31 @@ def main():
     if PROGRAM_NUMBER == 1:
         pickaxe(robot, attachment_motor2)
     elif PROGRAM_NUMBER == 2:
-        shipping_two(robot, attachment_motor)
-    elif PROGRAM_NUMBER == 3:
-        sonar(robot, attachment_motor)
-    elif PROGRAM_NUMBER == 4:
         whale_feeder(robot, attachment_motor)
-    elif PROGRAM_NUMBER == 5:
-        traverse_map(robot)
-    elif PROGRAM_NUMBER == 6:
+    elif PROGRAM_NUMBER == 3:
+        traverse_map(robot, attachment_motor)
+    elif PROGRAM_NUMBER == 4:
         top_left(robot, attachment_motor2)
-    elif PROGRAM_NUMBER == 7:
-        raise_the_mast(robot)
-    elif PROGRAM_NUMBER == 8:
+    elif PROGRAM_NUMBER == 5:
         boat(robot)
-    elif PROGRAM_NUMBER == 9:
-        tsunami(robot)
-    elif PROGRAM_NUMBER == 10:
-        attachment_motor.run_for_degrees(360, 100)
-        return
-        shark_squid_express(robot)
+    elif PROGRAM_NUMBER == 6:
+        shark_squid_express(robot, attachment_motor)
 
-def pickaxe(robot, attachment_motor2):
+def pickaxe(robot, attachment_motor2): 
     robot.drive_forward(43)
-    attachment_motor2.run_for_degrees(50)
+    attachment_motor2.run_for_degrees(70)
     wait_for_seconds(1)
-    robot.turn_left(40)
+    robot.turn_left(30)
     robot.drive_backward(10)
-    robot.turn_left(20)
+    robot.turn_left(30)
     robot.drive_forward(10)
-    robot.drive_backward(10)
-    robot.turn_left(25)
-    robot.drive_backward(40)
-    robot.turn_left(90)
+    robot.drive_backward(5)
+    robot.turn_left(10)
+    robot.drive_backward(5)
+    robot.turn_left(15)
+    robot.drive_backward(25)
+    robot.show_state()
+    robot.turn_left(45)
     
 # Rutledge.
 # Still needs work.
@@ -57,7 +50,7 @@ def sonar(robot, attachment_motor):
     robot.turn_right(40)
     attachment_motor.run_for_degrees(360,-50)
     robot.turn_left(40)
-    robot.drive_forward(80)
+    robot.drive_forward(56)
 
 # works sometimes
 # Cora, Rutledge
@@ -74,21 +67,30 @@ def shipping_two(robot,attachment_motor):
     robot.drive_forward(20, speed = 10)
     attachment_motor.stop()
 
-def traverse_map(robot):
+def traverse_map(robot, attachment_motor):
     robot.drive_forward(25)
     robot.turn_left(33)
-    return
+    robot.drive_forward(56)
+    attachment_motor.run_for_degrees(720, 100)
+    robot.drive_backward(3)
+    robot.turn_left(57)
+    robot.drive_forward(58.2)
+    robot.turn_right(15)
+    robot.drive_forward(30)
+    robot.turn_left(47)
+    robot.drive_forward(35)
+    robot.turn_left(40)
     robot.drive_forward(50)
-    robot.turn_left(25)
-    robot.drive_forward(10)
-    robot.turn_left(20)
-    robot.drive_forward(55)
-    robot.turn_left(10)
-    robot.drive_forward(20)
-    robot.turn_left(15)
-    robot.drive_forward(15)
-    robot.turn_left(30)
-    robot.drive_forward(70)
+    # robot.turn_left(25)
+    # robot.drive_forward(10)
+    # robot.turn_left(20)
+    # robot.drive_forward(55)
+    # robot.turn_left(10)
+    # robot.drive_forward(20)
+    # robot.turn_left(15)
+    # robot.drive_forward(15)
+    # robot.turn_left(30)
+    # robot.drive_forward(70)
 
 # works 100% of the time.
 # Raden and Phoebe
@@ -170,12 +172,13 @@ def tsunami(robot):
     robot.drive_forward(7, speed = 20)
     robot.drive_backward(10)
 
-def shark_squid_express(robot):
+def shark_squid_express(robot, attachment_motor):
     robot.drive_forward(25)
     robot.turn_left(20)
     robot.drive_forward(67)
     robot.turn_left(40)
     robot.drive_forward(13)
+    attachment_motor.run_for_degrees(-360, 100)
 
 
 SPEED = 90
