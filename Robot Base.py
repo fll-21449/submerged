@@ -3,7 +3,7 @@ from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math, sys
 
-PROGRAM_NUMBER = 3
+PROGRAM_NUMBER = 4
 
 def main():
     # goal is to be able to write code like this:
@@ -71,16 +71,16 @@ def traverse_map(robot, attachment_motor):
     robot.drive_forward(25)
     robot.turn_left(33)
     robot.drive_forward(56)
-    attachment_motor.run_for_degrees(720, 100)
+    attachment_motor.run_for_degrees(900, 100)
     robot.drive_backward(3)
     robot.turn_left(57)
     robot.drive_forward(58.2)
     robot.turn_right(15)
     robot.drive_forward(30)
     robot.turn_left(47)
-    robot.drive_forward(35)
+    robot.drive_forward(30)
     robot.turn_left(40)
-    robot.drive_forward(50)
+    robot.drive_forward(55)
     # robot.turn_left(25)
     # robot.drive_forward(10)
     # robot.turn_left(20)
@@ -135,7 +135,7 @@ def raise_the_mast(robot):
 
 
 def boat(robot):
-    robot.drive_forward(9,speed = 20)
+    robot.drive_forward(12,speed = 20)
     wait_for_seconds(1)
     robot.drive_backward(20)
 
