@@ -6,4 +6,5 @@ set -o nounset
 
 set -x
 mind-meld mindstorms fetch --git refs/heads/programs "$@"
-git push origin programs
+mind-meld spike fetch --git refs/heads/spike-programs "$@"
+git push origin programs spike-programs
