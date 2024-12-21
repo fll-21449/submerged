@@ -4,17 +4,131 @@ import runloop
 import math 
 import motor 
 
-SPEED = 900
+SPEED = 90
+
+PROGRAM_NUMBER = 6
 
 async def main():
-   robot = Kraken()
-   robot.reset_angle()
-   front_motor = port.F
-   back_motor = port.D 
+    robot = Kraken()
+    robot.reset_angle()
+    front_motor = port.F
+    back_motor = port.D 
+
+    if PROGRAM_NUMBER == 1:
+        await pickaxe(robot, front_motor)
+    elif PROGRAM_NUMBER == 2:
+        await whale_feeder(robot, back_motor)
+    elif PROGRAM_NUMBER == 3:
+        await traverse_map(robot, back_motor)
+    elif PROGRAM_NUMBER == 4:
+        await top_left(robot, front_motor)
+    elif PROGRAM_NUMBER == 5:
+        await boat(robot)
+    elif PROGRAM_NUMBER == 6:
+        await shark_squid_express(robot, back_motor)
+    elif PROGRAM_NUMBER == 0:
+        await test_run(robot, back_motor)
+
+async def test_run(robot, attachment_motor):
+    await robot.drive_forward(30)
+    await robot.turn_left(90)
+    await robot.drive_backward(30)
+    await robot.turn_right(90)
+    await motor.run_for_degrees(attachment_motor, 180, 600)
+
+async def pickaxe(robot, attachment_motor2):
+    await robot.drive_forward(43)
+    await motor.run_for_degrees(attachment_motor2, 70, 910)
+    await wait_for_seconds(1)
+    await robot.turn_left(30)
+    await robot.drive_backward(10)
+    await robot.turn_left(30)
+    await robot.drive_forward(10)
+    await robot.drive_backward(5)
+    await robot.turn_left(10)
+    await robot.drive_backward(5)
+    await robot.turn_left(15)
+    await robot.drive_backward(25)
+    await robot.show_state()
+    await robot.turn_left(45)
+
+async def whale_feeder(robot, attachment_motor):
+    await robot.drive_forward(40)
+    await robot.turn_left(45)
+    await robot.drive_forward(22)
+    await robot.turn_right(90)
+    await robot.drive_forward(36,speed=70)
+    # this is where it hits the whale
+    #attachment_motor.run_for_seconds(2, 70)
+    #added shipping lanes to whale feeder
+    await robot.drive_backward(11)
+    await robot.turn_left(90)
+    await robot.drive_forward(7)
+    # lined up with shipping lanes
+    await motor.run_for_degrees(attachment_motor, 180, 550)
+    await robot.drive_backward(1, speed = 15)
+    await motor.run_for_degrees(attachment_motor, -100, 1110)
+    await robot.drive_forward(6)
+    await robot.turn_right(45)
+    await robot.drive_backward(40)
+    await robot.turn_left(45)
+    await robot.drive_backward(19)
+
+async def traverse_map(robot, attachment_motor):
+    await robot.drive_forward(25)
+    await robot.turn_left(33)
+    await robot.drive_forward(56)
+    await motor.run_for_degrees(attachment_motor, 900, 1110)
+    await robot.drive_backward(3)
+    await robot.turn_left(57)
+    await robot.drive_forward(58.2)
+    await robot.turn_right(15)
+    await robot.drive_forward(30)
+    await robot.turn_left(47)
+    await robot.drive_forward(30)
+    await robot.turn_left(40)
+    await robot.drive_forward(55)
+    
+async def top_left(robot, attachment_motor2):
+    await robot.drive_forward(23)
+    await robot.turn_right(25)
+    await robot.drive_forward(45)
+    await robot.turn_left(115)
+    # get scuba diver :-)
+    await motor.run_for_degrees(attachment_motor2, 86, 550) 
+    await robot.drive_forward(8)
+    await motor.run_for_degrees(attachment_motor2, -60, 1110)   
+    # flip coral buds up
+    await robot.drive_backward(20)
+    #raise the mast
+    await robot.drive_forward(36)
+    await robot.turn_right(45)
+    await robot.drive_forward(15)
+    #hit the sherk
+    await robot.drive_backward(6)
+    await robot.turn_right(45)
+    await robot.drive_forward(22)
+    #cora reef
+    await robot.drive_backward(50)
+    await robot.turn_right(45)
+    await robot.drive_backward(50)
+
+async def boat(robot):
+    await robot.drive_forward(12,speed = 20)
+    await wait_for_seconds(1)
+    await robot.drive_backward(20)
+
+async def shark_squid_express(robot, attachment_motor):
+    await robot.drive_forward(25)
+    await robot.turn_left(20)
+    await robot.drive_forward(67)
+    await robot.turn_left(40)
+    await robot.drive_forward(13)
+    await motor.run_for_degrees(attachment_motor, -360, 1110)         
 
 
-   await robot.drive_forward(30)
-
+async def wait_for_seconds(s):
+    await runloop.sleep_ms(s*1000)
 
 class Kraken:
     def __init__(self):
@@ -36,7 +150,7 @@ class Kraken:
         goal_position = start_position + distance_in_degrees
         small_goal = goal_position - 7 * (360.0 / (self.wheel_diameter * math.pi))
         while motor.relative_position(self.right_motor) < small_goal:
-            motor_pair.move(self.motor_pair, self.correction(),velocity = speed)
+            motor_pair.move(self.motor_pair, self.correction(),velocity = speed*10)
         while motor.relative_position(self.right_motor) < goal_position:
             motor_pair.move(self.motor_pair, self.correction(),velocity = 100)
         motor_pair.stop(self.motor_pair)
@@ -49,41 +163,41 @@ class Kraken:
         # plus sign before the seven used to be a minus sign
         small_goal = goal_position + 7 * (360.0 / (self.wheel_diameter * math.pi))
         while motor.relative_position(self.right_motor) > small_goal:
-            motor_pair.move(self.motor_pair, -self.correction(),velocity = -speed)
+            motor_pair.move(self.motor_pair, -self.correction(),velocity = -speed*10)
         while motor.relative_position(self.right_motor) > goal_position:
             motor_pair.move(self.motor_pair, -self.correction(),velocity = -100)
         motor_pair.stop(self.motor_pair)
 
-    async def turn_left(self, degrees, speed = 500):
-        if speed>500:
-            speed = 500
-        self.angle_goal = self.angle_goal - degrees
-        small_goal = self.angle_goal + 20
-        motor_pair.move_tank(self.motor_pair, -speed, speed)
-        while self.get_yaw()>small_goal:
-            # wait
-            True
-        motor_pair.move_tank(self.motor_pair, -100, 100)
-        while self.get_yaw()>self.angle_goal:
-            True
-        motor_pair.stop(self.motor_pair)
-
-    async def turn_right(self, degrees, speed = 500):
-        if speed>500:
-            speed = 500
+    async def turn_left(self, degrees, speed = 50):
+        if speed>50:
+            speed = 50
         self.angle_goal = self.angle_goal + degrees
         small_goal = self.angle_goal - 20
-        motor_pair.move_tank(self.motor_pair, speed, -speed)
+        motor_pair.move_tank(self.motor_pair, -speed*10, speed*10)
         while self.get_yaw()<small_goal:
             # wait
             True
-        motor_pair.move_tank(self.motor_pair, 100, -100)
+        motor_pair.move_tank(self.motor_pair, -100, 100)
         while self.get_yaw()<self.angle_goal:
             True
         motor_pair.stop(self.motor_pair)
 
+    async def turn_right(self, degrees, speed = 50):
+        if speed>50:
+            speed = 50
+        self.angle_goal = self.angle_goal - degrees
+        small_goal = self.angle_goal + 20
+        motor_pair.move_tank(self.motor_pair, speed*10, -speed*10)
+        while self.get_yaw()>small_goal:
+            # wait
+            True
+        motor_pair.move_tank(self.motor_pair, 100, -100)
+        while self.get_yaw()>self.angle_goal:
+            True
+        motor_pair.stop(self.motor_pair)
+
     def correction(self):
-        correction = self.angle_goal - self.get_yaw()
+        correction = self.get_yaw() - self.angle_goal
         correction *= 10
         if correction < -50:
             correction = -50
