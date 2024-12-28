@@ -6,7 +6,7 @@ import motor
 
 SPEED = 90
 
-PROGRAM_NUMBER = 6
+PROGRAM_NUMBER = 2
 
 async def main():
     robot = Kraken()
@@ -17,7 +17,7 @@ async def main():
     if PROGRAM_NUMBER == 1:
         await pickaxe(robot, front_motor)
     elif PROGRAM_NUMBER == 2:
-        await whale_feeder(robot, back_motor)
+        await whale_feeder(robot, back_motor, front_motor)
     elif PROGRAM_NUMBER == 3:
         await traverse_map(robot, back_motor)
     elif PROGRAM_NUMBER == 4:
@@ -41,38 +41,38 @@ async def pickaxe(robot, attachment_motor2):
     await motor.run_for_degrees(attachment_motor2, 70, 910)
     await wait_for_seconds(1)
     await robot.turn_left(30)
-    await robot.drive_backward(10)
+    await robot.drive_backward(17)
     await robot.turn_left(30)
     await robot.drive_forward(10)
-    await robot.drive_backward(5)
+    await robot.drive_backward(13)
     await robot.turn_left(10)
-    await robot.drive_backward(5)
+    await robot.drive_backward(13)
     await robot.turn_left(15)
-    await robot.drive_backward(25)
-    await robot.show_state()
+    await robot.drive_backward(33)
     await robot.turn_left(45)
 
-async def whale_feeder(robot, attachment_motor):
+async def whale_feeder(robot, attachment_motor, soanar_motor):
     await robot.drive_forward(40)
-    await robot.turn_left(45)
-    await robot.drive_forward(22)
-    await robot.turn_right(90)
+    await robot.turn_left(45, speed=25)
+    await robot.drive_forward(15)
+    await robot.turn_right(90, speed=25)
     await robot.drive_forward(36,speed=70)
     # this is where it hits the whale
     #attachment_motor.run_for_seconds(2, 70)
     #added shipping lanes to whale feeder
-    await robot.drive_backward(11)
-    await robot.turn_left(90)
+    await robot.drive_backward(15)
+    await robot.turn_left(90, speed=25)
+    await motor.run_for_degrees(soanar_motor, 180, 1002)
     await robot.drive_forward(7)
     # lined up with shipping lanes
     await motor.run_for_degrees(attachment_motor, 180, 550)
-    await robot.drive_backward(1, speed = 15)
+    await robot.drive_backward(7, speed = 15)
     await motor.run_for_degrees(attachment_motor, -100, 1110)
     await robot.drive_forward(6)
-    await robot.turn_right(45)
-    await robot.drive_backward(40)
-    await robot.turn_left(45)
-    await robot.drive_backward(19)
+    await robot.turn_right(45, speed=25)
+    await robot.drive_backward(47)
+    await robot.turn_left(45, speed=25)
+    await robot.drive_backward(26)
 
 async def traverse_map(robot, attachment_motor):
     await robot.drive_forward(25)
@@ -198,7 +198,7 @@ class Kraken:
 
     def correction(self):
         correction = self.get_yaw() - self.angle_goal
-        correction *= 10
+        correction *= 5
         if correction < -50:
             correction = -50
         if correction > 50:
