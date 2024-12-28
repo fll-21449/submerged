@@ -6,7 +6,7 @@ import motor
 
 SPEED = 90
 
-PROGRAM_NUMBER = 2
+PROGRAM_NUMBER = 4
 
 async def main():
     robot = Kraken()
@@ -79,14 +79,15 @@ async def traverse_map(robot, attachment_motor):
     await robot.turn_left(33)
     await robot.drive_forward(56)
     await motor.run_for_degrees(attachment_motor, 900, 1110)
-    await robot.drive_backward(3)
-    await robot.turn_left(57)
-    await robot.drive_forward(58.2)
-    await robot.turn_right(15)
+    robot.reset_angle()
+    await robot.drive_backward(11)
+    await robot.turn_left(60, speed=25)
+    await robot.drive_forward(56)
+    await robot.turn_right(15, speed = 25)
+    await robot.drive_forward(28)
+    await robot.turn_left(47, speed=25)
     await robot.drive_forward(30)
-    await robot.turn_left(47)
-    await robot.drive_forward(30)
-    await robot.turn_left(40)
+    await robot.turn_left(40, speed=25)
     await robot.drive_forward(55)
     
 async def top_left(robot, attachment_motor2):
@@ -99,19 +100,19 @@ async def top_left(robot, attachment_motor2):
     await robot.drive_forward(8)
     await motor.run_for_degrees(attachment_motor2, -60, 1110)   
     # flip coral buds up
-    await robot.drive_backward(20)
+    await robot.drive_backward(27)
     #raise the mast
     await robot.drive_forward(36)
     await robot.turn_right(45)
     await robot.drive_forward(15)
     #hit the sherk
-    await robot.drive_backward(6)
+    await robot.drive_backward(13)
     await robot.turn_right(45)
     await robot.drive_forward(22)
     #cora reef
-    await robot.drive_backward(50)
+    await robot.drive_backward(57)
     await robot.turn_right(45)
-    await robot.drive_backward(50)
+    await robot.drive_backward(57)
 
 async def boat(robot):
     await robot.drive_forward(12,speed = 20)
@@ -168,7 +169,7 @@ class Kraken:
             motor_pair.move(self.motor_pair, -self.correction(),velocity = -100)
         motor_pair.stop(self.motor_pair)
 
-    async def turn_left(self, degrees, speed = 50):
+    async def turn_left(self, degrees, speed = 25):
         if speed>50:
             speed = 50
         self.angle_goal = self.angle_goal + degrees
@@ -182,7 +183,7 @@ class Kraken:
             True
         motor_pair.stop(self.motor_pair)
 
-    async def turn_right(self, degrees, speed = 50):
+    async def turn_right(self, degrees, speed = 25):
         if speed>50:
             speed = 50
         self.angle_goal = self.angle_goal - degrees
