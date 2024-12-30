@@ -6,7 +6,7 @@ import motor
 
 SPEED = 90
 
-PROGRAM_NUMBER = 4
+PROGRAM_NUMBER = 5
 
 async def main():
     robot = Kraken()
@@ -92,25 +92,26 @@ async def traverse_map(robot, attachment_motor):
     
 async def top_left(robot, attachment_motor2):
     await robot.drive_forward(23)
-    await robot.turn_right(25)
-    await robot.drive_forward(45)
-    await robot.turn_left(115)
+    await robot.turn_right(30)
+    await robot.drive_forward(35)
+    await robot.turn_left(120)
     # get scuba diver :-)
-    await motor.run_for_degrees(attachment_motor2, 86, 550) 
-    await robot.drive_forward(8)
+    await motor.run_for_degrees(attachment_motor2, 100, 550) 
+    await wait_for_seconds(1)
+    await robot.drive_forward(11)
     await motor.run_for_degrees(attachment_motor2, -60, 1110)   
     # flip coral buds up
     await robot.drive_backward(27)
     #raise the mast
-    await robot.drive_forward(36)
+    await robot.drive_forward(20)
     await robot.turn_right(45)
     await robot.drive_forward(15)
-    #hit the sherk
+    #hit the shark
     await robot.drive_backward(13)
     await robot.turn_right(45)
     await robot.drive_forward(22)
     #cora reef
-    await robot.drive_backward(57)
+    await robot.drive_backward(50)
     await robot.turn_right(45)
     await robot.drive_backward(57)
 
