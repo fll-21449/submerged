@@ -6,7 +6,7 @@ import motor
 
 SPEED = 90
 
-PROGRAM_NUMBER = 5
+PROGRAM_NUMBER = 6
 
 async def main():
     robot = Kraken()
@@ -121,12 +121,13 @@ async def boat(robot):
     await robot.drive_backward(20)
 
 async def shark_squid_express(robot, attachment_motor):
-    await robot.drive_forward(25)
-    await robot.turn_left(20)
-    await robot.drive_forward(67)
+    await robot.drive_forward(80)
+    await robot.drive_backward(16, speed = 10)
     await robot.turn_left(40)
+    await robot.drive_forward(30)
+    await robot.turn_left(20)
     await robot.drive_forward(13)
-    await motor.run_for_degrees(attachment_motor, -360, 1110)         
+    await motor.run_for_degrees(attachment_motor, -150, 1110)         
 
 
 async def wait_for_seconds(s):
