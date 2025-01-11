@@ -6,7 +6,7 @@ import motor
 
 SPEED = 90
 
-PROGRAM_NUMBER = 6
+PROGRAM_NUMBER = 1
 
 async def main():
     robot = Kraken()
@@ -43,13 +43,13 @@ async def pickaxe(robot, attachment_motor2):
     await robot.turn_left(30)
     await robot.drive_backward(17)
     await robot.turn_left(30)
-    await robot.drive_forward(10)
+    await motor_pair.move_for_degrees(robot.motor_pair, 300, 0, velocity = 1500)
     await robot.drive_backward(13)
     await robot.turn_left(10)
     await robot.drive_backward(13)
     await robot.turn_left(15)
     await robot.drive_backward(33)
-    await robot.turn_left(45)
+    await robot.turn_left(50)
 
 async def whale_feeder(robot, attachment_motor, soanar_motor):
     await robot.drive_forward(40)
